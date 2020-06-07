@@ -6,6 +6,8 @@ Simplify your test assertions forever.
 .. code-block:: python
    :class: ignore
 
+   from pyariable import Variable
+
    def test_dict():
        x = Variable()
        y = Variable()
@@ -16,6 +18,8 @@ In some tests it's common to get a random ID back from a database. Your assertio
 
 .. code-block:: python
    :class: ignore
+
+   from pyariable import Variable
 
    def test_list():
        x = Variable()
