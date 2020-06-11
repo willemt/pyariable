@@ -1,4 +1,4 @@
-from pyariable import Variable
+from pyariable import Variable, variables
 
 
 def test_right_hand_side():
@@ -33,9 +33,27 @@ def test_lt():
     assert 2 > x
 
 
+def test_round():
+    x = Variable()
+    assert 1.1 == x
+    assert 1 == round(x, 0)
+
+
+def test_int():
+    x = Variable()
+    assert 1.1 == x
+    assert 1 == int(x)
+
+
 def test_dict():
     x = Variable()
     y = Variable()
+    assert {1: "XXX", 2: "XXX", 3: "YYY"} == {1: x, 2: x, 3: y}
+    assert x != y
+
+
+def test_variables():
+    x, y = variables(2)
     assert {1: "XXX", 2: "XXX", 3: "YYY"} == {1: x, 2: x, 3: y}
     assert x != y
 

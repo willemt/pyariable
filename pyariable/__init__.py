@@ -23,3 +23,14 @@ class Variable:
             return repr(self.value)
         except AttributeError:
             return "?"
+
+    def __round__(self, x):
+        return round(self.value, x)
+
+    def __int__(self):
+        return int(self.value)
+
+
+def variables(n):
+    for _ in range(n):
+        yield Variable()
