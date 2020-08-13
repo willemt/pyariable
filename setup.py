@@ -15,7 +15,7 @@ def long_description():
 
 setup(
     name="pyariable",
-    version="0.2.0",
+    version="0.3.0",
     description="Placeholder variables to aid in testing.",
     long_description=long_description(),
     url="https://github.com/willemt/pyariable",

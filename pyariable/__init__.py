@@ -31,6 +31,11 @@ class Variable:
         return int(self.value)
 
 
+class UniversalVariable:
+    def __eq__(self, b: object) -> bool:
+        return True
+
+
 def variables(n):
     for _ in range(n):
         yield Variable()
