@@ -12,9 +12,21 @@ class Variable:
         except AttributeError:
             raise Exception("Unknown value")
 
+    def __le__(self, b) -> bool:
+        try:
+            return self.value <= b
+        except AttributeError:
+            raise Exception("Unknown value")
+
     def __gt__(self, b) -> bool:
         try:
             return self.value > b
+        except AttributeError:
+            raise Exception("Unknown value")
+
+    def __ge__(self, b) -> bool:
+        try:
+            return self.value >= b
         except AttributeError:
             raise Exception("Unknown value")
 

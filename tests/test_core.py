@@ -27,10 +27,22 @@ def test_gt():
     assert 2 > x
 
 
-def test_lt():
+def test_gte():
     x = Variable()
     assert 1 == x
-    assert 2 > x
+    assert 2 >= x
+
+
+def test_lt():
+    x = Variable()
+    assert 3 == x
+    assert 2 < x
+
+
+def test_lte():
+    x = Variable()
+    assert 3 == x
+    assert 2 <= x
 
 
 def test_round():
