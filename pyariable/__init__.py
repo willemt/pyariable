@@ -1,8 +1,19 @@
+
+class ValidationError(Exception):
+    pass
+
+
 class Variable:
+    def __init__(self, is_valid=None):
+        self.is_valid = is_valid
+
     def __eq__(self, b: object) -> bool:
         try:
             return self.value == b
         except AttributeError:
+            if self.is_valid:
+                if not self.is_valid(b):
+                    raise ValidationError(b)
             self.value: object = b
             return True
 
@@ -44,7 +55,13 @@ class Variable:
 
 
 class UniversalVariable:
+    def __init__(self, is_valid=None):
+        self.is_valid = is_valid
+
     def __eq__(self, b: object) -> bool:
+        if self.is_valid:
+            if not self.is_valid(b):
+                raise ValidationError(b)
         return True
 
 

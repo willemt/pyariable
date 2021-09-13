@@ -1,4 +1,4 @@
-from pyariable import Variable, variables
+from pyariable import UniversalVariable, ValidationError, Variable, variables
 
 
 def test_right_hand_side():
@@ -109,3 +109,15 @@ def test_assign_to_another_variable():
     assert "'XXX'" == repr(x)
     assert "'XXX'" == repr(y)
     assert "XXX" == y
+
+
+def test_is_valid():
+    x = UniversalVariable(lambda i: False if i == "bad" else True)
+    try:
+        assert x == "bad"
+    except ValidationError:
+        pass
+    else:
+        raise Exception
+
+    assert x == "good"
