@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "pyariable"
+version = "0.5.0"
+readme = "README.rst"
+keywords = ["testing", "development"]
+description = "Placeholder variables to aid in testing."
+authors = ["Willem Thiart <himself@willemthiart.com>"]
+license = "BSD-3-clause"
+homepage = "https://github.com/willemt/pyariable"
+repository = "https://github.com/willemt/pyariable"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Logging",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
