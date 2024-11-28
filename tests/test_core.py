@@ -121,3 +121,51 @@ def test_is_valid():
         raise Exception
 
     assert x == "good"
+
+
+def test_prefix_right_hand_side():
+    x = Variable()
+    assert "?" == repr(x)
+    assert "prefix.XXX" == "prefix." + x
+    assert "XXX" == x
+    assert "'XXX'" == repr(x)
+
+
+def test_prefix_right_hand_side_int():
+    x = Variable()
+    assert "?" == repr(x)
+    assert 7 == 5 + x
+    assert 2 == x
+    assert "2" == repr(x)
+
+
+def test_prefix_right_hand_side_float():
+    x = Variable()
+    assert "?" == repr(x)
+    assert 7.0 == 5.0 + x
+    assert 2.0 == x
+    assert "2.0" == repr(x)
+
+
+def test_suffix_left_hand_side():
+    x = Variable()
+    assert "?" == repr(x)
+    assert "XXX.suffix" == x + ".suffix"
+    assert "XXX" == x
+    assert "'XXX'" == repr(x)
+
+
+def test_suffix_left_hand_side_int():
+    x = Variable()
+    assert "?" == repr(x)
+    assert 7 == x + 5
+    assert 2 == x
+    assert "2" == repr(x)
+
+
+def test_suffix_left_hand_side_float():
+    x = Variable()
+    assert "?" == repr(x)
+    assert 7.0 == x + 5.0
+    assert 2 == x
+    assert "2.0" == repr(x)

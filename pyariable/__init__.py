@@ -53,6 +53,34 @@ class Variable:
     def __int__(self):
         return int(self.value)
 
+    def __add__(self, suffix):
+
+        def follows_prefix(value):
+            if isinstance(value, str):
+                if not value.endswith(suffix):
+                    return False
+                return value.removesuffix(suffix) == self
+            elif isinstance(value, (int, float)):
+                return value - suffix == self
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
+
+    def __radd__(self, prefix):
+
+        def follows_prefix(value):
+            if isinstance(value, str):
+                if not value.startswith(prefix):
+                    return False
+                return value.removeprefix(prefix) == self
+            elif isinstance(value, (int, float)):
+                return value - prefix == self
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
+
 
 class UniversalVariable:
     def __init__(self, is_valid=None):
