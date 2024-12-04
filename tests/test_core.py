@@ -131,12 +131,28 @@ def test_prefix_right_hand_side():
     assert "'XXX'" == repr(x)
 
 
+def test_prefix_right_hand_side2():
+    x = Variable()
+    assert "?" == repr(x)
+    assert {"x": "prefix.XXX"} == {"x": "prefix." + x}
+    assert "XXX" == x
+    assert "'XXX'" == repr(x)
+
+
 def test_prefix_right_hand_side_int():
     x = Variable()
     assert "?" == repr(x)
     assert 7 == 5 + x
     assert 2 == x
     assert "2" == repr(x)
+
+
+def test_prefix_right_hand_side_dict():
+    x = Variable()
+    assert "?" == repr(x)
+    assert {"test": 1, "cat": 2} == {"test": 1} | x
+    assert x == {'cat': 2}
+    assert "{'cat': 2}" == repr(x)
 
 
 def test_prefix_right_hand_side_float():
@@ -169,3 +185,11 @@ def test_suffix_left_hand_side_float():
     assert 7.0 == x + 5.0
     assert 2 == x
     assert "2.0" == repr(x)
+
+
+def test_suffix_left_hand_side_dict():
+    x = Variable()
+    assert "?" == repr(x)
+    assert {"test": 1, "cat": 2} == x | {"test": 1}
+    assert x == {'cat': 2}
+    assert "{'cat': 2}" == repr(x)

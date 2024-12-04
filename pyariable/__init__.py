@@ -81,6 +81,24 @@ class Variable:
 
         return Variable(is_valid=follows_prefix)
 
+    def __or__(self, prefix):
+        def follows_prefix(value):
+            if isinstance(value, dict):
+                return {k: value[k] for k in value.keys() - prefix.keys()} == self
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
+
+    def __ror__(self, prefix):
+        def follows_prefix(value):
+            if isinstance(value, dict):
+                return {k: value[k] for k in value.keys() - prefix.keys()} == self
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
+
 
 class UniversalVariable:
     def __init__(self, is_valid=None):

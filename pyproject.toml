@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyariable"
-version = "0.6.0"
+version = "0.7.0"
 readme = "README.rst"
 keywords = ["testing", "development"]
 description = "Placeholder variables to aid in testing."
