@@ -1,4 +1,7 @@
-from pyariable import UniversalVariable, ValidationError, Variable, variables
+from pyariable import UniversalVariable
+from pyariable import ValidationError
+from pyariable import Variable
+from pyariable import variables
 
 
 def test_right_hand_side():
@@ -193,3 +196,45 @@ def test_suffix_left_hand_side_dict():
     assert {"test": 1, "cat": 2} == x | {"test": 1}
     assert x == {'cat': 2}
     assert "{'cat': 2}" == repr(x)
+
+
+def test_suffix_left_hand_side_dict_fail():
+    x = Variable()
+    assert "?" == repr(x)
+    assert {"test": 1, "cat": 2} != x | {"test": 2}
+    assert x == {'cat': 2}
+    assert "{'cat': 2}" == repr(x)
+
+
+def test_universal_suffix_left_hand_side_dict():
+    x = UniversalVariable()
+    assert {"test": 1, "cat": 2} == x | {"test": 1}
+    assert x == {'cat': 2}
+
+
+def test_universal_suffix_left_hand_side_dict_failure():
+    assert {"test": 1, "cat": 2} != UniversalVariable() | {"test": 2}
+
+
+def test_universal_suffix_multiple():
+    x = UniversalVariable()
+    assert [{"test": 1, "cat": 2}, {"test": 2, "cat": 3}] == [
+        x | {"test": 1},
+        x | {"test": 2},
+    ]
+
+
+def test_suffix_multiple():
+    x = Variable()
+    assert [{"test": 1, "cat": 3}, {"test": 2, "cat": 3}] == [
+        x | {"test": 1},
+        x | {"test": 2},
+    ]
+
+
+def test_suffix_multiple_fail():
+    x = Variable()
+    assert [{"test": 1, "cat": 2}, {"test": 2, "cat": 3}] != [
+        x | {"test": 1},
+        x | {"test": 2},
+    ]

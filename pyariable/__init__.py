@@ -13,7 +13,7 @@ class Variable:
         except AttributeError:
             if self.is_valid:
                 if not self.is_valid(b):
-                    raise ValidationError(b)
+                    return False
             self.value: object = b
             return True
 
@@ -84,7 +84,14 @@ class Variable:
     def __or__(self, prefix):
         def follows_prefix(value):
             if isinstance(value, dict):
-                return {k: value[k] for k in value.keys() - prefix.keys()} == self
+                ret = {k: value[k] for k in value.keys() - prefix.keys()} == self
+                keys_in_both = value.keys() & prefix.keys()
+                if keys_in_both and not (
+                    {k: value[k] for k in keys_in_both}
+                    == {k: prefix[k] for k in keys_in_both}
+                ):
+                    return False
+                return ret
             else:
                 raise Exception()
 
@@ -93,7 +100,14 @@ class Variable:
     def __ror__(self, prefix):
         def follows_prefix(value):
             if isinstance(value, dict):
-                return {k: value[k] for k in value.keys() - prefix.keys()} == self
+                ret = {k: value[k] for k in value.keys() - prefix.keys()} == self
+                keys_in_both = value.keys() & prefix.keys()
+                if keys_in_both and not (
+                    {k: value[k] for k in keys_in_both}
+                    == {k: prefix[k] for k in keys_in_both}
+                ):
+                    return False
+                return ret
             else:
                 raise Exception()
 
@@ -109,6 +123,38 @@ class UniversalVariable:
             if not self.is_valid(b):
                 raise ValidationError(b)
         return True
+
+    def __or__(self, prefix):
+        def follows_prefix(value):
+            if isinstance(value, dict):
+                ret = {k: value[k] for k in value.keys() - prefix.keys()} == self
+                keys_in_both = value.keys() & prefix.keys()
+                if keys_in_both and not (
+                    {k: value[k] for k in keys_in_both}
+                    == {k: prefix[k] for k in keys_in_both}
+                ):
+                    return False
+                return ret
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
+
+    def __ror__(self, prefix):
+        def follows_prefix(value):
+            if isinstance(value, dict):
+                ret = {k: value[k] for k in value.keys() - prefix.keys()} == self
+                keys_in_both = value.keys() & prefix.keys()
+                if keys_in_both and not (
+                    {k: value[k] for k in keys_in_both}
+                    == {k: prefix[k] for k in keys_in_both}
+                ):
+                    return False
+                return ret
+            else:
+                raise Exception()
+
+        return Variable(is_valid=follows_prefix)
 
 
 def variables(n):
