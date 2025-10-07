@@ -7,14 +7,14 @@ class Variable:
     def __init__(self, is_valid=None):
         self.is_valid = is_valid
 
-    def __eq__(self, b: object) -> bool:
+    def __eq__(self, b) -> bool:
         try:
             return self.value == b
         except AttributeError:
             if self.is_valid:
                 if not self.is_valid(b):
                     return False
-            self.value: object = b
+            self.value = b
             return True
 
     def __lt__(self, b) -> bool:
